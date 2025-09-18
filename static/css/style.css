@@ -1,0 +1,272 @@
+:root {
+    --primary-color: #0d9488; /* Teal-700 */
+    --primary-light: #ccfbf1; /* Teal-100 */
+    --text-primary: #1e293b;  /* Slate-800 */
+    --text-secondary: #475569; /* Slate-600 */
+    --border-color: rgba(255, 255, 255, 0.4);
+    --shadow-color: rgba(15, 23, 42, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Add a soft, beautiful background gradient */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f0fdfa 0%, #f1f5f9 100%);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    overflow: hidden; /* Hide scrollbars from background elements */
+}
+
+/* Animated background shapes for a dynamic feel */
+body::before, body::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: pulse 20s infinite alternate;
+}
+body::before {
+    background: #2dd4bf; /* Teal-400 */
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 15%;
+}
+body::after {
+    background: #a5f3fc; /* Cyan-200 */
+    width: 250px;
+    height: 250px;
+    bottom: 15%;
+    right: 20%;
+    animation-delay: -10s;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.8); }
+    100% { transform: scale(1.2); }
+}
+
+/* Glassmorphism Container */
+.container {
+    width: 100%;
+    max-width: 700px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    box-shadow: 0 10px 40px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    padding: 3rem;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    z-index: 10;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+}
+
+header p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+}
+
+.camera-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 2rem auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+#webcam {
+    width: 100%;
+    height: auto;
+    display: block;
+    transform: scaleX(-1); /* Mirror view */
+}
+
+.cta-button, .secondary-button {
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: 0 4px 15px rgba(13, 148, 136, 0.1);
+}
+
+.cta-button {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    background-color: #115e59; /* Darker Teal */
+    box-shadow: 0 7px 25px rgba(13, 148, 136, 0.2);
+}
+
+.secondary-button {
+    background-color: #e2e8f0;
+    color: #475569;
+    box-shadow: none;
+    border: 1px solid #cbd5e1;
+}
+
+.secondary-button:hover {
+    background-color: #cbd5e1;
+}
+
+/* Loading View */
+.hidden {
+    display: none !important;
+}
+
+#loading-view h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.loader {
+    border: 5px solid var(--primary-light);
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto 2rem auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Results View */
+#skin-type-result {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    border: 1px solid #5eead4; /* Teal-300 */
+}
+
+.recommendations-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    text-align: left;
+    margin-bottom: 2.5rem;
+}
+
+.product-card {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardFadeIn 0.5s ease-out forwards;
+}
+
+/* Staggered animation delay will be set by JS */
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 7px 25px var(--shadow-color);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+@keyframes cardFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.product-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.product-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.product-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-light);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    body {
+        padding: 1rem;
+        align-items: flex-start;
+    }
+    .container {
+        padding: 1.5rem;
+    }
+    .recommendations-container {
+        grid-template-columns: 1fr;
+    }
+    header h1 {
+        font-size: 1.75rem;
+    }
+    header p {
+        font-size: 1rem;
+    }
+}
+

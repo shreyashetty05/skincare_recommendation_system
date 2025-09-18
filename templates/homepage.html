@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to SkinWise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0c0a09; /* Stone-950 */
+            --primary-glow: rgba(20, 184, 166, 0.4); /* Teal-500 with opacity */
+            --secondary-glow: rgba(99, 102, 241, 0.4); /* Indigo-500 with opacity */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Set the new background image */
+            background-image: url("{{ url_for('static', filename='maxresdefault.jpg') }}");
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            cursor: none;
+        }
+
+        /* --- Custom Cursor --- */
+        .cursor {
+            position: fixed;
+            left: 0;
+            top: 0;
+            pointer-events: none;
+            border-radius: 50%;
+            z-index: 9999;
+        }
+
+        .cursor-outer {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1),
+                        background-color 0.3s ease,
+                        border-color 0.3s ease;
+        }
+
+        .cursor-inner {
+            width: 8px;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        body.cursor-hover .cursor-outer {
+            transform: scale(2);
+            background-color: rgba(20, 184, 166, 0.2);
+            border-color: rgba(20, 184, 166, 0.5);
+        }
+        
+        body.cursor-hover .cursor-inner {
+            opacity: 0;
+        }
+
+
+        /* Animated background elements container */
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1; /* Sits above the background image */
+        }
+        
+        /* Dark overlay for text readability */
+        .background-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(12, 10, 9, 0.7);
+            z-index: 2;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.6; /* Slightly reduced opacity */
+            animation: move 25s infinite alternate ease-in-out;
+            z-index: 3; /* Sits above the dark overlay */
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background-color: var(--primary-glow);
+            top: -50px;
+            left: -100px;
+        }
+
+        .shape-2 {
+            width: 500px;
+            height: 500px;
+            background-color: var(--secondary-glow);
+            bottom: -100px;
+            right: -150px;
+            animation-delay: -5s;
+        }
+
+        @keyframes move {
+            0% {
+                transform: scale(1) translate(0px, 0px) rotate(0deg);
+            }
+            100% {
+                transform: scale(1.3) translate(30px, -50px) rotate(30deg);
+            }
+        }
+
+
+        /* Main Content Container */
+        .content-container {
+            text-align: center;
+            padding: 2rem;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeInContent 1.5s 0.5s forwards ease-out;
+        }
+
+        @keyframes fadeInContent {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .brand-name {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #5eead4, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            animation: textFocusIn 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+        }
+        
+        @keyframes textFocusIn {
+          0% {
+            filter: blur(12px);
+            opacity: 0;
+          }
+          100% {
+            filter: blur(0px);
+            opacity: 1;
+          }
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: #a1a1aa; /* Zinc-400 */
+            max-width: 500px;
+            margin: 0 auto 2.5rem auto;
+            line-height: 1.7;
+        }
+
+        .analyze-button {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            background: linear-gradient(90deg, #14b8a6, #6366f1);
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(20, 184, 166, 0.4), 0 0 20px rgba(99, 102, 241, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .analyze-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 35px rgba(20, 184, 166, 0.6), 0 0 35px rgba(99, 102, 241, 0.6);
+        }
+        
+        .analyze-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+        
+        .analyze-button:hover::before {
+            left: 100%;
+        }
+
+
+        @media (max-width: 768px) {
+            .brand-name {
+                font-size: 3rem;
+            }
+            .tagline {
+                font-size: 1rem;
+            }
+            .shape-1 {
+                width: 300px;
+                height: 300px;
+            }
+            .shape-2 {
+                width: 350px;
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor cursor-outer"></div>
+    <div class="cursor cursor-inner"></div>
+
+    <div class="background-container">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+
+    <div class="content-container">
+        <h1 class="brand-name">SkinWise</h1>
+        <p class="tagline">
+            Intelligent skincare starts here. Your guide to a healthier, more radiant complexion.
+        </p>
+        <a href="/analyze" class="analyze-button">Let's Analyze</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursorOuter = document.querySelector('.cursor-outer');
+            const cursorInner = document.querySelector('.cursor-inner');
+            const analyzeButton = document.querySelector('.analyze-button');
+            const body = document.body;
+
+            let mouseX = 0, mouseY = 0;
+            let outerX = 0, outerY = 0;
+            let innerX = 0, innerY = 0;
+
+            const lerp = (a, b, n) => (1 - n) * a + n * b;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            const animateCursor = () => {
+                // Animate outer cursor with a delay (lerp) for a smooth "follow" effect
+                outerX = lerp(outerX, mouseX, 0.1);
+                outerY = lerp(outerY, mouseY, 0.1);
+                cursorOuter.style.transform = `translate(${outerX - 20}px, ${outerY - 20}px)`;
+
+                // Inner cursor follows precisely
+                innerX = mouseX;
+                innerY = mouseY;
+                cursorInner.style.transform = `translate(${innerX - 4}px, ${innerY - 4}px)`;
+
+                requestAnimationFrame(animateCursor);
+            };
+
+            animateCursor();
+            
+            // Add/remove class from body for hover effects handled by CSS
+            analyzeButton.addEventListener('mouseenter', () => {
+                body.classList.add('cursor-hover');
+            });
+
+            analyzeButton.addEventListener('mouseleave', () => {
+                body.classList.remove('cursor-hover');
+            });
+        });
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkinWise Advisor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Capture View -->
+        <div id="capture-view">
+            <header>
+                <h1>Skincare Advisor</h1>
+                <p>Allow camera access and capture a photo of your face in good lighting for an skin analysis.</p>
+            </header>
+            <main>
+                <div class="camera-container">
+                    <video id="webcam" autoplay playsinline></video>
+                    <canvas id="canvas" style="display:none;"></canvas>
+                </div>
+                <button id="capture-btn" class="cta-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    Analyze My Skin
+                </button>
+            </main>
+        </div>
+
+        <!-- Loading View -->
+        <div id="loading-view" class="hidden">
+            <div class="loader"></div>
+            <h2>Analyzing your skin...</h2>
+            <p>Determining your skin type. Please wait a moment.</p>
+        </div>
+
+        <!-- Results View -->
+        <div id="results-view" class="hidden">
+            <header>
+                <h1>Analysis Complete</h1>
+                <p>Based on our analysis, your skin type appears to be:</p>
+                <h2 id="skin-type-result"></h2>
+            </header>
+            <div class="recommendations-container" id="recommendations-container">
+                <!-- Product recommendations will be injected here by JS -->
+            </div>
+            <button id="try-again-btn" class="secondary-button">Start Over</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
