@@ -1,0 +1,7 @@
+Flask
+Pillow
+tensorflow
+numpy
+opencv-python-headless
+mtcnn
+google-generativeai
